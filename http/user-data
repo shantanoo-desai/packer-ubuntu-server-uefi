@@ -1,0 +1,35 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - qemu-guest-agent
+  late-commands:
+    - "sudo apt update && sudo apt install -y efibootmgr"
+    - "sudo efibootmgr"
+    - "sudo efibootmgr -o 0007,0001,0000,0002,0003,0004,0005,0006"
+  user-data:
+    preserve_hostname: false
+    hostname: packerubuntu
+    package_upgrade: true
+    timezone: Europe/Berlin
+    chpasswd:
+      expire: true
+      list:
+        - user1:packerubuntu
+    users:
+      - name: admin
+        passwd: $6$xyz$74AlwKA3Z5n2L6ujMzm/zQXHCluA4SRc2mBfO2/O5uUc2yM2n2tnbBMi/IVRLJuKwfjrLZjAT7agVfiK7arSy/
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+      - name: user1
+        plain-txt-passwd: packerubuntu
+        lock-passwd: false
+        shell: /bin/bash
