@@ -15,18 +15,21 @@
 .PHONY: build-focal build-jammy validate-packer validate-cloudinit validate
 
 TEMPLATE_FILE:=ubuntu.pkr.hcl
+FOCAL_VARS_FILE:=./vars/focal.pkrvars.hcl
+JAMMY_VARS_FILE:=./vars/jammy.pkrvars.hcl
+
 
 build-focal:
-	PACKER_LOG=1 packer build -force -var-file=./vars/focal.pkrvars.hcl ${TEMPLATE_FILE}
+	PACKER_LOG=1 packer build -force -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
 build-jammy:
-	PACKER_LOG=1 packer build -force -var-file=./vars/jammy.pkrvars.hcl ${TEMPLATE_FILE}
+	PACKER_LOG=1 packer build -force -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-focal:
-	packer validate -var-file=./vars/focal.pkrvars.hcl ${TEMPLATE_FILE}
+	packer validate -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-jammy:
-	packer validate -var-file=./vars/jammy.pkrvars.hcl ${TEMPLATE_FILE}
+	packer validate -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-packer: validate-focal validate-jammy
 
