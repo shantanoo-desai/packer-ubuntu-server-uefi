@@ -1,0 +1,35 @@
+services:
+  vm-builder-focal:
+    build: ./
+    image: qemu-packer-builder:latest
+    privileged: true
+    mem_limt: 4GB
+    cpus: 4
+    devices:
+      - /dev/kvm
+    volumes:
+      - "../:/app"
+#       - "/home/<USER>/.cache/packer:/app/packer_cache" # Packer Cache for faster builds
+      - "/usr/share/OVMF/OVMF_CODE.fd:/usr/share/OVMF/OVMF_CODE.fd"
+    environment:
+      PACKER_LOG: 1
+    network_mode: host
+    command:
+      - make -C ./server/amd64 build-focal
+  vm-builder-jammy:
+    build: ./
+    image: qemu-packer-builder:latest
+    privileged: true
+    mem_limt: 4GB
+    cpus: 4
+    devices:
+      - /dev/kvm
+    volumes:
+      - "../:/app"
+#       - "/home/<USER>/.cache/packer:/app/packer_cache" # Packer Cache for faster builds
+      - "/usr/share/OVMF/OVMF_CODE.fd:/usr/share/OVMF/OVMF_CODE.fd"
+    environment:
+      PACKER_LOG: 1
+    network_mode: host
+    command:
+      - make -C ./server/amd64 build-jammy
