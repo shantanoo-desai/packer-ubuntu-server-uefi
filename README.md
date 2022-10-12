@@ -1,5 +1,5 @@
 # packer-ubuntu-server-uefi
-Templates for creating Ubuntu Live Server Images (20.04.4 / 22.04.1) with Packer + QEMU + Autoinstall (cloud-init)
+Templates for creating Ubuntu Live Server Images (20.04.5 / 22.04.1) with Packer + QEMU + Autoinstall (cloud-init)
 
 An accompanying blogpost is available [here][1]
 
