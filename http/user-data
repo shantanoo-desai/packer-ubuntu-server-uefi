@@ -7,8 +7,6 @@ autoinstall:
   ssh:
     install-server: true
     allow-pw: true
-  packages:
-    - qemu-guest-agent
   late-commands:
     - "sudo apt update && sudo apt install -y efibootmgr"
     - "sudo efibootmgr"
