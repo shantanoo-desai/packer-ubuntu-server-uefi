@@ -12,6 +12,6 @@
 #   See the License for the specific language governing permissions and
 #  limitations under the License.
 
-## Packer Variables for Ubuntu 20.04.4 Live Server (Focal Fossa)
-ubuntu_version  = "20.04.5"
-ubuntu_iso_file = "ubuntu-20.04.5-live-server-amd64.iso"
+## Packer Variables for Ubuntu 20.04.6 Live Server (Focal Fossa)
+ubuntu_version  = "20.04.6"
+ubuntu_iso_file = "ubuntu-20.04.6-live-server-amd64.iso"
