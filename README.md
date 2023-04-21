@@ -1,5 +1,12 @@
 # packer-ubuntu-server-uefi
-Templates for creating Ubuntu Live Server Images (20.04.5 / 22.04.1) with Packer + QEMU + Autoinstall (cloud-init)
+Templates for creating Ubuntu Live Server Images with Packer + QEMU + Autoinstall (cloud-init)
+
+Currently Supported Images:
+
+| Name                | Version       |
+|:--------------------|:-------------:|
+| __Focal Fossa__     |     `20.04.6` |
+| __Jammy Jellyfish__ |     `22.04.2` |
 
 An accompanying blogpost is available [here][1]
 
