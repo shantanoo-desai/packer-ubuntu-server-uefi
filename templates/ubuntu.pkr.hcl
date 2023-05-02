@@ -1,4 +1,4 @@
-# Copyright 2022 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
+# Copyright 2023 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -27,9 +27,17 @@ variable "vm_template_name" {
     default = "packerubuntu"
 }
 
+variable "host_distro" {
+    type = string
+    default = "manjaro"
+}
+
 locals {
     vm_name = "${var.vm_template_name}-${var.ubuntu_version}"
     output_dir = "output/${local.vm_name}"
+    ovmf_prefix = {
+      "manjaro" = "x64/"
+    }
 }
 
 source "qemu" "custom_image" {
@@ -60,10 +68,9 @@ source "qemu" "custom_image" {
     disk_size        = "30G"
     disk_compression = true
 
-    # Use the UEFI Bootloader OVMF file on the Build Machine
-    qemuargs         = [
-        ["-bios", "/usr/share/OVMF/OVMF_CODE.fd"]
-    ]
+    efi_firmware_code = "/usr/share/OVMF/${lookup(local.ovmf_prefix, var.host_distro, "")}OVMF_CODE.fd"
+    efi_firmware_vars = "/usr/share/OVMF/${lookup(local.ovmf_prefix, var.host_distro, "")}OVMF_VARS.fd"
+    efi_boot          = true
 
     # Final Image will be available in `output/packerubuntu-*/`
     output_directory = "${local.output_dir}"

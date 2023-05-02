@@ -1,4 +1,4 @@
-# Copyright 2022 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
+# Copyright 2023 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,22 +20,22 @@ JAMMY_VARS_FILE:=./vars/jammy.pkrvars.hcl
 TEST_TEMPLATE_FILE:=./templates/test.pkr.hcl
 
 test-focal:
-	PACKER_LOG=1 packer build -force -var-file=${FOCAL_VARS_FILE} ${TEST_TEMPLATE_FILE}
+	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
 test-jammy:
-	PACKER_LOG=1 packer build -force -var-file=${JAMMY_VARS_FILE} ${TEST_TEMPLATE_FILE}
+	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
 build-focal:
-	PACKER_LOG=1 packer build -force -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
+	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
 build-jammy:
-	PACKER_LOG=1 packer build -force -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
+	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-focal:
-	packer validate -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
+	source /etc/os-release; packer validate -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-jammy:
-	packer validate -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
+	source /etc/os-release; packer validate -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-packer: validate-focal validate-jammy
 

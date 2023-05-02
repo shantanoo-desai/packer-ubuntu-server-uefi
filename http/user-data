@@ -8,9 +8,11 @@ autoinstall:
     install-server: true
     allow-pw: true
   late-commands:
-    - "sudo apt update && sudo apt install -y efibootmgr"
-    - "sudo efibootmgr"
-    - "sudo efibootmgr -o 0007,0001,0000,0002,0003,0004,0005,0006"
+    - |
+      if [ -d /sys/firmware/efi ]; then
+        apt-get install -y efibootmgr
+        efibootmgr -o $(efibootmgr | perl -n -e '/Boot(.+)\* ubuntu/ && print $1')
+      fi
   user-data:
     preserve_hostname: false
     hostname: packerubuntu
