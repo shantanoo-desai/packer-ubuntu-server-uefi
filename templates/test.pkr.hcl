@@ -26,9 +26,17 @@ variable "vm_template_name" {
     default = "packerubuntu"
 }
 
+variable "host_distro" {
+    type = string
+    default = "manjaro"
+}
+
 locals {
     vm_name = "${var.vm_template_name}-${var.ubuntu_version}"
     output_dir = "output/${local.vm_name}"
+    ovmf_prefix = {
+      "manjaro" = "x64/"
+    }
 }
 
 
@@ -42,7 +50,7 @@ source "qemu" "provision_source" {
     accelerator     = "kvm"
     disk_size       = "30G"
     qemuargs        = [
-        ["-bios", "/usr/share/OVMF/OVMF_CODE.fd"],
+        ["-bios", "/usr/share/OVMF/${lookup(local.ovmf_prefix, var.host_distro, "")}/OVMF_CODE.fd"],
         ["-serial", "mon:stdio"],
         ["-device", "virtio-net,netdev=forward,id=net0"],
         ["-netdev", "user,hostfwd=tcp::{{ .SSHHostPort }}-:22,id=forward"],
