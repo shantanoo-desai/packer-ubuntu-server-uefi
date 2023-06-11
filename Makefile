@@ -19,22 +19,25 @@ FOCAL_VARS_FILE:=./vars/focal.pkrvars.hcl
 JAMMY_VARS_FILE:=./vars/jammy.pkrvars.hcl
 TEST_TEMPLATE_FILE:=./templates/test.pkr.hcl
 
-test-focal:
+init:
+	packer init ${TEMPLATE_FILE}
+
+test-focal: init
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
-test-jammy:
+test-jammy: init
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
-build-focal:
+build-focal: init
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
-build-jammy:
+build-jammy: init
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
-validate-focal:
+validate-focal: init
 	source /etc/os-release; packer validate -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
-validate-jammy:
+validate-jammy: init
 	source /etc/os-release; packer validate -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-packer: validate-focal validate-jammy

@@ -12,6 +12,14 @@
 #   See the License for the specific language governing permissions and
 #  limitations under the License.
 
+packer {
+  required_plugins {
+    qemu = {
+      version = ">= 1.0.9"
+      source  = "github.com/hashicorp/qemu"
+    }
+  }
+}
 
 ## Variable will be set via the Command line defined under the `vars` directory
 variable "ubuntu_version" {
