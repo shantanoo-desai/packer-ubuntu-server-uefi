@@ -1,5 +1,6 @@
-FROM hashicorp/packer:1.8
+FROM hashicorp/packer:1.10
 ENV PACKER_CACHE_DIR=/app/packer_cache
+ENV PACKER_CONFIG_DIR=/app
 
 RUN apk add --no-cache --update \
         make \
@@ -14,7 +15,8 @@ RUN apk add --no-cache --update \
         python3 \
         py3-pip \
         unzip \
-        wget
+        wget \
+        py3-netifaces
 
 WORKDIR /app
 
