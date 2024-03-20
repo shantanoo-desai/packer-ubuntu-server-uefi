@@ -22,16 +22,16 @@ TEST_TEMPLATE_FILE:=./templates/test.pkr.hcl
 init:
 	packer init ${TEMPLATE_FILE}
 
-test-focal: init
+test-focal: validate-focal
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
-test-jammy: init
+test-jammy: validate-jammy
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEST_TEMPLATE_FILE}
 
-build-focal: init
+build-focal: validate-focal
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${FOCAL_VARS_FILE} ${TEMPLATE_FILE}
 
-build-jammy: init
+build-jammy: validate-jammy
 	source /etc/os-release; PACKER_LOG=1 packer build -force -var host_distro=$${ID} -var-file=${JAMMY_VARS_FILE} ${TEMPLATE_FILE}
 
 validate-focal: init
