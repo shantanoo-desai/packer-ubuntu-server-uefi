@@ -1,4 +1,4 @@
-# Copyright 2022 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
+# Copyright 2024 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,5 +13,6 @@
 #  limitations under the License.
 
 ## Packer Variables for Ubuntu 20.04.6 Live Server (Focal Fossa)
+ubuntu_distro	= "focal"
 ubuntu_version  = "20.04.6"
 ubuntu_iso_file = "ubuntu-20.04.6-live-server-amd64.iso"
