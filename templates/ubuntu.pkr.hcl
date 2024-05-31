@@ -1,4 +1,4 @@
-# Copyright 2023 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
+# Copyright 2024 Shantanoo 'Shan' Desai <sdes.softdev@gmail.com>
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -22,6 +22,10 @@ packer {
 }
 
 ## Variable will be set via the Command line defined under the `vars` directory
+variable "ubuntu_distro" {
+    type = string
+}
+
 variable "ubuntu_version" {
     type = string
 }
@@ -56,7 +60,7 @@ source "qemu" "custom_image" {
 
     # Location of Cloud-Init / Autoinstall Configuration files
     # Will be served via an HTTP Server from Packer
-    http_directory = "http"
+    http_directory = "http/${var.ubuntu_distro}"
 
     # Boot Commands when Loading the ISO file with OVMF.fd file (Tianocore) / GrubV2
     boot_command = [
